@@ -1,4 +1,4 @@
-const { TokenType } = require('./DSLLexer');
+const { TokenType } = require('./DSLlexer');
 
 class ParseError {
   constructor(message, line, column, found) {

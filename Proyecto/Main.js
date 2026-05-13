@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { DSLLexer } = require('./DSLLexer');
+const { DSLLexer } = require('./DSLlexer');
 const { DSLParser } = require('./DSLParser');
 const { DSLInterpreter } = require('./DSLInterpreter');
 
