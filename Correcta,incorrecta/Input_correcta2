@@ -1,0 +1,6 @@
+regla 'bloqueo_acceso_ilegal' { cuando intentoAccesoFueraHorario entonces agregarUsuarioAListaNegra }
+regla 'bloqueo_ip_sospechosa' { cuando intentosFallidos > 5 entonces agregarIPAListaNegra }
+regla 'monitoreo_admin' { cuando accesoARecursosSensibles y noEsAdministrador entonces activarMonitoreoDetallado }
+accion 'agregarUsuarioAListaNegra' { }
+accion 'agregarIPAListaNegra' { }
+accion 'activarMonitoreoDetallado' { }

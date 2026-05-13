@@ -1,0 +1,3 @@
+ regla 'acceso_invalido' { cuando intentoAccesoFueraHorario entonces comandoInvalido }
+regla 'sin_accion' { cuando @#$ entonces agregarUsuarioAListaNegra }
+accion 'agregarUsuarioAListaNegra' { }

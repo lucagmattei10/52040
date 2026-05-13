@@ -1,0 +1,3 @@
+regla 'regla_mal_formada' { cuando @condicionRara entonces agregarUsuarioAListaNegra }
+regla 'sin_cuando' { intentoAccesoFueraHorario entonces agregarIPAListaNegra }
+accion 'agregarUsuarioAListaNegra' { }

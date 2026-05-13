@@ -1,0 +1,97 @@
+//GRAMÁTICA ASIGNADA — Tema 25914_12
+//Notación: EBNF (Extended Backus-Naur Form)
+
+
+<DSL>    ::= <Regla>+ <Accion>+
+
+<Regla>  ::= "regla" ' <Identificador> ' "{" "cuando" <Condicion> "entonces" <Comando> "}"
+
+<Condicion> ::= <AccesoNoAutorizado>
+              | <MultiplesIntentosFallidos>
+              | <ActividadSospechosa>
+
+<AccesoNoAutorizado>        ::= "intentoAccesoFueraHorario"
+
+<MultiplesIntentosFallidos> ::= "intentosFallidos" ">" <Digito>
+
+<ActividadSospechosa>       ::= "accesoARecursosSensibles" "y" "noEsAdministrador"
+
+<Comando> ::= "agregarUsuarioAListaNegra"
+            | "agregarIPAListaNegra"
+            | "activarMonitoreoDetallado"
+
+<Identificador> ::= <Letra> (<Letra> | <Digito>)*
+
+<Cadena>  ::= <Caracter>+
+
+<Letra>   ::= "A" | "B" | "C" | ... | "Z"
+            | "a" | "b" | "c" | ... | "z"
+
+<Digito>  ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+<Caracter>::= <Letra> | <Digito> | "_" | "-" | "/"
+
+// TOKENS RECONOCIDOS
+
+
+Palabras clave:
+  regla         → REGLA
+  accion        → ACCION
+  cuando        → CUANDO
+  entonces      → ENTONCES
+  y             → Y
+
+Condiciones (terminales):
+  intentoAccesoFueraHorario     → INTENTO_ACCESO_FUERA_HORARIO
+  intentosFallidos              → INTENTOS_FALLIDOS
+  accesoARecursosSensibles      → ACCESO_RECURSOS_SENSIBLES
+  noEsAdministrador             → NO_ES_ADMINISTRADOR
+
+Comandos (terminales):
+  agregarUsuarioAListaNegra     → AGREGAR_USUARIO_LISTA_NEGRA
+  agregarIPAListaNegra          → AGREGAR_IP_LISTA_NEGRA
+  activarMonitoreoDetallado     → ACTIVAR_MONITOREO_DETALLADO
+
+Literales:
+  [a-zA-Z][a-zA-Z0-9_]*        → IDENTIFICADOR
+  [0-9]+                        → DIGITO
+
+Símbolos:
+  {    → LLAVE_ABRE
+  }    → LLAVE_CIERRA
+  '    → COMILLA_SIMPLE
+  >    → MAYOR_QUE
+
+
+  //GRAMÁTICA EN FORMATO ANTLR4 (archivo DSL.g4)
+
+
+grammar DSL;
+
+dsl         : regla+ accion+ EOF ;
+
+regla       : 'regla' '\'' identificador '\'' '{' 'cuando' condicion 'entonces' comando '}' ;
+
+accion      : 'accion' '\'' identificador '\'' '{' '}' ;
+
+condicion   : accesoNoAutorizado
+            | multiplesIntentosFallidos
+            | actividadSospechosa
+            ;
+
+accesoNoAutorizado       : 'intentoAccesoFueraHorario' ;
+
+multiplesIntentosFallidos: 'intentosFallidos' '>' DIGITO ;
+
+actividadSospechosa      : 'accesoARecursosSensibles' 'y' 'noEsAdministrador' ;
+
+comando     : 'agregarUsuarioAListaNegra'
+            | 'agregarIPAListaNegra'
+            | 'activarMonitoreoDetallado'
+            ;
+
+identificador : LETRA (LETRA | DIGITO)* ;
+
+LETRA   : [a-zA-Z] ;
+DIGITO  : [0-9] ;
+WS      : [ \t\r\n]+ -> skip ;

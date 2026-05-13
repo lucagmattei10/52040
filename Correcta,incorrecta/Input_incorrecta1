@@ -1,0 +1,2 @@
+regla 'acceso_invalido' { cuando intentoAccesoFueraHorario entonces bloquearTodo }
+regla 'intentos_mal' { cuando intentosFallidos > 3 entonces activarMonitoreoDetallado }

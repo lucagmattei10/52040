@@ -1,0 +1,14 @@
+{
+  "name": "analizador-dsl-25914-12",
+  "version": "1.0.0",
+  "description": "Analizador léxico y sintáctico para DSL de seguridad - Tema 25914_12",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js input.txt",
+    "analyze": "node src/main.js",
+    "test-error": "node src/main.js input_error.txt"
+  },
+  "keywords": ["ANTLR4", "DSL", "parser", "lexer", "javascript"],
+  "author": "Tema 25914_12",
+  "license": "MIT"
+}
